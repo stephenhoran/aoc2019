@@ -4,6 +4,7 @@ import (
 	"../../commons"
 	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -15,7 +16,7 @@ func main() {
 	var original []int
 
 	index := 0
-	f := commons.OpenFile("index.txt")
+	f := commons.OpenFile("input.txt")
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
@@ -39,8 +40,8 @@ func main() {
 			if input[0] == 19690720 {
 				fmt.Printf("Noun: %d - Verb: %d\n", n, v)
 				fmt.Println(100*n + v)
-				fmt.Printf("Time to work: %v", time.Since(t))
-				break
+				fmt.Println(time.Since(t))
+				os.Exit(0)
 			}
 		}
 	}
@@ -57,13 +58,11 @@ func intCode(index int, input []int) {
 	}
 
 	if opCode == 1 {
-		value := input[pos1] + input[pos2]
-		input[store] = value
+		input[store] = input[pos1] + input[pos2]
 	}
 
 	if opCode == 2 {
-		value := input[pos1] * input[pos2]
-		input[store] = value
+		input[store] = input[pos1] * input[pos2]
 	}
 
 	intCode(index+4, input)
