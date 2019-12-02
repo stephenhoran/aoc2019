@@ -4,7 +4,6 @@ import (
 	"../../commons"
 	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -16,7 +15,7 @@ func main() {
 	var original []int
 
 	index := 0
-	f := commons.OpenFile("input.txt")
+	f := commons.OpenFile("index.txt")
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
@@ -33,27 +32,27 @@ func main() {
 		for n := 0; n <= 99; n++ {
 			input := make([]int, len(original))
 			copy(input, original)
-			intCode(index, input, n, v)
+			input[1] = n
+			input[2] = v
+			intCode(index, input)
+
+			if input[0] == 19690720 {
+				fmt.Printf("Noun: %d - Verb: %d\n", n, v)
+				fmt.Println(100*n + v)
+				fmt.Printf("Time to work: %v", time.Since(t))
+				break
+			}
 		}
 	}
 }
 
-func intCode(index int, input []int, noun int, verb int) {
-	input[1] = noun
-	input[2] = verb
-
+func intCode(index int, input []int) {
 	opCode := input[index]
 	pos1 := input[index+1]
 	pos2 := input[index+2]
 	store := input[index+3]
 
 	if opCode == 99 {
-		if input[0] == 19690720 {
-			fmt.Printf("Noun: %d - Verb: %d\n", noun, verb)
-			fmt.Println(100*noun + verb)
-			fmt.Printf("Time to work: %v", time.Since(t))
-			os.Exit(1)
-		}
 		return
 	}
 
@@ -67,5 +66,5 @@ func intCode(index int, input []int, noun int, verb int) {
 		input[store] = value
 	}
 
-	intCode(index+4, input, noun, verb)
+	intCode(index+4, input)
 }
