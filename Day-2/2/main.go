@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+var t time.Time
+
 func main() {
 	var original []int
 
@@ -25,7 +27,7 @@ func main() {
 		}
 	}
 
-	t := time.Now()
+	t = time.Now()
 
 	for v := 0; v <= 99; v++ {
 		for n := 0; n <= 99; n++ {
@@ -34,8 +36,6 @@ func main() {
 			intCode(index, input, n, v)
 		}
 	}
-
-	fmt.Printf("Time to work: %v", time.Since(t))
 }
 
 func intCode(index int, input []int, noun int, verb int) {
@@ -51,6 +51,7 @@ func intCode(index int, input []int, noun int, verb int) {
 		if input[0] == 19690720 {
 			fmt.Printf("Noun: %d - Verb: %d\n", noun, verb)
 			fmt.Println(100*noun + verb)
+			fmt.Printf("Time to work: %v", time.Since(t))
 			os.Exit(1)
 		}
 		return
