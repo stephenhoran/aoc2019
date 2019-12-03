@@ -37,36 +37,36 @@ func main() {
 				for i := 0; i < iterations; i++ {
 					currentX++
 					if index == 0 {
-						plot[strconv.Itoa(currentX)+":"+strconv.Itoa(currentY)] = struct{}{}
-					} else {
 						updatePlot(currentX, currentY)
+					} else {
+						checkPlot(currentX, currentY)
 					}
 				}
 			case "L":
 				for i := 0; i < iterations; i++ {
 					currentX--
 					if index == 0 {
-						plot[strconv.Itoa(currentX)+":"+strconv.Itoa(currentY)] = struct{}{}
-					} else {
 						updatePlot(currentX, currentY)
+					} else {
+						checkPlot(currentX, currentY)
 					}
 				}
 			case "U":
 				for i := 0; i < iterations; i++ {
 					currentY++
 					if index == 0 {
-						plot[strconv.Itoa(currentX)+":"+strconv.Itoa(currentY)] = struct{}{}
-					} else {
 						updatePlot(currentX, currentY)
+					} else {
+						checkPlot(currentX, currentY)
 					}
 				}
 			case "D":
 				for i := 0; i < iterations; i++ {
 					currentY--
 					if index == 0 {
-						plot[strconv.Itoa(currentX)+":"+strconv.Itoa(currentY)] = struct{}{}
-					} else {
 						updatePlot(currentX, currentY)
+					} else {
+						checkPlot(currentX, currentY)
 					}
 				}
 			}
@@ -88,6 +88,10 @@ func main() {
 }
 
 func updatePlot(x int, y int) {
+	plot[strconv.Itoa(x)+":"+strconv.Itoa(y)] = struct{}{}
+}
+
+func checkPlot(x int, y int) {
 	if _, ok := plot[strconv.Itoa(x)+":"+strconv.Itoa(y)]; ok {
 		collisions = append(collisions, []int{x, y})
 	}
